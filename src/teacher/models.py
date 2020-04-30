@@ -18,5 +18,4 @@ class Teacher(models.Model):
             last_name=faker.last_name(),
             email=faker.email(),
         )
-
         teacher.save()

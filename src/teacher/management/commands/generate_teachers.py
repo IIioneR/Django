@@ -1,5 +1,7 @@
 from django.core.management.base import BaseCommand
 from teacher.models import Teacher
+
+
 class Command(BaseCommand):
     help = 'generate_teachers'
 
