@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from teacher.views import generate_teachers, teachers_list, teachers_add
 from student.views import students_list, students_add
-from group.views import generate_groups, group_list
+from group.views import generate_groups, group_list, groups_add
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,8 +27,10 @@ urlpatterns = [
     path('students/', students_list, name='students'),
     path('teachers/', teachers_list, name='teachers'),
     path('generate-group/', generate_groups),
-    path('groups-list/', group_list),
+    path('groups/', group_list, name='groups'),
     path('students/add/', students_add),
     path('teachers/add/', teachers_add),
+    path('groups/add/', groups_add),
+
 
 ]
