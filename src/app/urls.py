@@ -17,12 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from teacher.views import generate_teachers, teachers_list, teachers_add
-from student.views import students_list, students_add
+from student.views import students_list, students_add, generate_students
 from group.views import generate_groups, group_list, groups_add
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('gen-teachers/', generate_teachers),
+    path('generate-students/', generate_students),
     path('', admin.site.urls),
     path('students/', students_list, name='students'),
     path('teachers/', teachers_list, name='teachers'),
@@ -31,6 +32,5 @@ urlpatterns = [
     path('students/add/', students_add),
     path('teachers/add/', teachers_add),
     path('groups/add/', groups_add),
-
 
 ]
