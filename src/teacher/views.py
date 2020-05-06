@@ -1,7 +1,9 @@
 from django.db.models import Q
+from django.urls import reverse
 
+from .forms import TeacherAddForm
 from .models import Teacher
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 
 
@@ -29,4 +31,21 @@ def teachers_list(request):
         request=request,
         template_name='teachers_list.html',
         context={'teachers_list': result}
+    )
+
+
+def teachers_add(request):
+
+    if request.method == "POST":
+        form = TeacherAddForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('teachers'))
+    else:
+        form = TeacherAddForm()
+
+    return render(
+        request=request,
+        template_name='teachers_add.html',
+        context={'form': form}
     )
