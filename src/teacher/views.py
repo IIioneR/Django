@@ -1,9 +1,10 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.urls import reverse
 
-from .forms import TeacherAddForm
+from .forms import TeacherAddForm, TeacherEditForm
 from .models import Teacher
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render
 
 
@@ -25,17 +26,14 @@ def teachers_list(request):
             last_name=request.GET.get("lname")) | Q(
             email=request.GET.get("email")))
 
-    result = "<br>".join(str(teacher) for teacher in qs)
-    # return HttpResponse(result)
     return render(
         request=request,
         template_name='teachers_list.html',
-        context={'teachers_list': result}
+        context={'teachers_list': qs, 'title': 'Teacher_list'}
     )
 
 
 def teachers_add(request):
-
     if request.method == "POST":
         form = TeacherAddForm(request.POST)
         if form.is_valid():
@@ -47,5 +45,26 @@ def teachers_add(request):
     return render(
         request=request,
         template_name='teachers_add.html',
-        context={'form': form}
+        context={'form': form, 'title': 'Teacher_add'}
+    )
+
+
+def teachers_edit(request, id):
+    try:
+        teacher = Teacher.objects.get(id=id)
+    except ObjectDoesNotExist:
+        return HttpResponseNotFound(f'Student with id {id} does not exist')
+
+    if request.method == "POST":
+        form = TeacherEditForm(request.POST, instance=teacher)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('teachers'))
+    else:
+        form = TeacherEditForm(instance=teacher)
+
+    return render(
+        request=request,
+        template_name='teachers_edit.html',
+        context={'form': form, 'title': 'Teacher_edit'}
     )

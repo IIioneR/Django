@@ -1,9 +1,10 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.urls import reverse
 
-from .forms import GroupAddForms
+from .forms import GroupEditForm, GroupAddForm
 from .models import Group
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render
 
 
@@ -21,25 +22,45 @@ def group_list(request):
         qs = qs.filter(Q(name_group=request.GET.get("name_group")) | Q(
             number_of_group=request.GET.get("number_of_group")))
 
-    result = "<br>".join(str(group) for group in qs)
     return render(
         request=request,
         template_name='groups_list.html',
-        context={'groups_list': result}
+        context={'groups_list': qs, 'title': 'Group_list'}
     )
 
 
 def groups_add(request):
     if request.method == "POST":
-        form = GroupAddForms(request.POST)
+        form = GroupAddForm(request.POST)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse('groups'))
     else:
-        form = GroupAddForms()
+        form = GroupAddForm()
 
     return render(
         request=request,
         template_name='groups_add.html',
-        context={'form': form}
+        context={'form': form, 'title': 'Group_add'}
+    )
+
+
+def groups_edit(request, id):
+    try:
+        group = Group.objects.get(id=id)
+    except ObjectDoesNotExist:
+        return HttpResponseNotFound(f'Student with id {id} does not exist')
+
+    if request.method == "POST":
+        form = GroupEditForm(request.POST, instance=group)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('groups'))
+    else:
+        form = GroupEditForm(instance=group)
+
+    return render(
+        request=request,
+        template_name='teachers_edit.html',
+        context={'form': form, 'title': 'Group_edit'}
     )
