@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{{ form.as_p }}
 
 
     <form action='{{ request.path }}' method='POST'>{% csrf_token %}
