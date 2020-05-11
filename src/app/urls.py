@@ -35,7 +35,7 @@ urlpatterns = [
     path('students/edit/<int:id>', students_edit),
     path('teachers/edit/<int:id>', teachers_edit),
     path('groups/edit/<int:id>', groups_edit),
-    path('students/<int:id>/delete/', students_delete),
+    path('students/delete/<int:id>', students_delete),
 
 
 ]

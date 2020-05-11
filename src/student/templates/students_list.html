@@ -2,6 +2,7 @@
 
 {% block content %}
 
+
     <form>
       <label for="fname">First name:</label><br>
       <input type="text" id="fname" name="fname"><br>
@@ -15,7 +16,7 @@
     {{student.id}}
     <a href="/students/edit/{{ student.id }}">{{student.first_name}} {{student.last_name}}</a>
     {{student.email}}
-    <button type="submit"><a href="/students/{{ student.id }}/delete/">Delete</a></button>
+    <button type="submit"><a href="/students/delete/{{ student.id }}">Delete</a></button>
     <br>
 
 {% endfor %}
