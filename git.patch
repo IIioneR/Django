@@ -1,0 +1,71 @@
+diff --git a/src/student/forms.py b/src/student/forms.py
+index df0224d..a2db22d 100644
+--- a/src/student/forms.py
++++ b/src/student/forms.py
+@@ -15,3 +15,8 @@ class StudentAddForm(StudentBaseForm):
+ 
+ class StudentEditForm(StudentBaseForm):
+     pass
++
++
++class StudentDeleteForm(StudentBaseForm):
++    class Meta(StudentBaseForm.Meta):
++        fields = []
+diff --git a/src/student/templates/students_del.html b/src/student/templates/students_del.html
+index fd33215..9478b99 100644
+--- a/src/student/templates/students_del.html
++++ b/src/student/templates/students_del.html
+@@ -5,9 +5,12 @@
+ 
+     <form action='{{ request.path }}' method='POST'>{% csrf_token %}
+         <h1>Do you want to delete the Student?</h1>
++        {{form.as_p}}
++
+     <p><input type='submit' value='Yes' />  <a href="{{ request.path }}"></a></p>
+         <p> <a href="/students"> Cancel </a> </p>
+ 
+     </form>
+ 
++
+ {% endblock %}
+diff --git a/src/student/views.py b/src/student/views.py
+index 09a59e1..78d08fd 100644
+--- a/src/student/views.py
++++ b/src/student/views.py
+@@ -8,6 +8,9 @@ from student.models import Student
+ 
+ 
+ # Create your views here.
++from student.forms import StudentDeleteForm
++
++
+ def generate_students(request):
+     for _ in range(10):
+         Student.generate_student()
+@@ -19,7 +22,7 @@ def students_list(request):
+     qs = Student.objects.all()
+ 
+     if request.GET.get("fname") or request.GET.get('lname'):
+-        qs = qs.filter(Q(first_name=request.GET.get("fname") | Q(last_name=request.GET.get("lname"))))
++        qs = qs.filter(Q(first_name=request.GET.get("fname")) | Q(last_name=request.GET.get("lname")))
+ 
+     return render(
+         request=request,
+@@ -74,11 +77,13 @@ def students_delete(request, id):
+         return HttpResponseNotFound(f'Student with id {id} does not exist')
+ 
+     if request.method == "POST":
+-        del_student = student.delete()
+-        print(f'{del_student}have deleted')
+-        return HttpResponseRedirect(reverse('students'))
++        form = StudentDeleteForm(request.POST, instance=student)
++        if form.is_valid():
++            del_student = student.delete()
++            print(f'{del_student}have deleted')
++            return HttpResponseRedirect(reverse('students'))
+     else:
+-        form = StudentEditForm(
++        form = StudentDeleteForm(
+             instance=student
+         )
+ 

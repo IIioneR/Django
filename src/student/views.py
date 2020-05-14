@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render
 from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
-from student.forms import StudentAddForm, StudentEditForm
+from student.forms import StudentAddForm, StudentEditForm, StudentDeleteForm
 from student.models import Student
 
 
@@ -19,7 +19,7 @@ def students_list(request):
     qs = Student.objects.all()
 
     if request.GET.get("fname") or request.GET.get('lname'):
-        qs = qs.filter(Q(first_name=request.GET.get("fname") | Q(last_name=request.GET.get("lname"))))
+        qs = qs.filter(Q(first_name=request.GET.get("fname")) | Q(last_name=request.GET.get("lname")))
 
     return render(
         request=request,
@@ -74,11 +74,13 @@ def students_delete(request, id):
         return HttpResponseNotFound(f'Student with id {id} does not exist')
 
     if request.method == "POST":
-        del_student = student.delete()
-        print(f'{del_student}have deleted')
-        return HttpResponseRedirect(reverse('students'))
+        form = StudentDeleteForm(request.POST, instance=student)
+        if form.is_valid():
+            del_student = student.delete()
+            print(f'Student {del_student} have deleted')
+            return HttpResponseRedirect(reverse('students'))
     else:
-        form = StudentEditForm(
+        form = StudentDeleteForm(
             instance=student
         )
 
