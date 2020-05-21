@@ -16,7 +16,7 @@ def generate_students(request):
 
 
 def students_list(request):
-    qs = Student.objects.all()
+    qs = Student.objects.all().select_related('group')
 
     if request.GET.get("fname") or request.GET.get('lname'):
         qs = qs.filter(Q(first_name=request.GET.get("fname")) | Q(last_name=request.GET.get("lname")))

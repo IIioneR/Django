@@ -61,6 +61,6 @@ def groups_edit(request, id):
 
     return render(
         request=request,
-        template_name='teachers_edit.html',
-        context={'form': form, 'title': 'Group_edit'}
+        template_name='groups_edit.html',
+        context={'form': form, 'title': 'Group_edit', 'group': group}
     )

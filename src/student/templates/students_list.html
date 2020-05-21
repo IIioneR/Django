@@ -11,14 +11,6 @@
         <button type="submit">Search</button>
     </form>
 
-
-{% for student in students_list %}
-    {{student.id}}
-    <a href="/students/edit/{{ student.id }}">{{student.first_name}} {{student.last_name}}</a>
-    {{student.email}}
-    <button type="submit"><a href="/students/delete/{{ student.id }}">Delete</a></button>
-    <br>
-
-{% endfor %}
+    {% include 'includes/students_table.html' %}
 
 {% endblock %}
