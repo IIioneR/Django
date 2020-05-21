@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Groups list</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
+{% block content %}
     <form>
       <label for="name_group">name:</label><br>
       <input type="text" id="name_group" name="name_group"><br>
@@ -14,7 +9,11 @@
         <button type="submit">Search</button>
     </form>
 
-{{ groups_list | safe}}
+{% for group in groups_list %}
+    {{group.id}}
+    <a href="/groups/edit/{{ group.id }}">{{group.name_group}} {{group.number_of_group}}</a>
+    <br>
 
-</body>
-</html>
+{% endfor %}
+
+{% endblock %}

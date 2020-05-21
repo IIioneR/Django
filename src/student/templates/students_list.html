@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Students list</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block content %}
+
 
     <form>
       <label for="fname">First name:</label><br>
@@ -14,7 +11,14 @@
         <button type="submit">Search</button>
     </form>
 
-{{ students_list | safe}}
 
-</body>
-</html>
+{% for student in students_list %}
+    {{student.id}}
+    <a href="/students/edit/{{ student.id }}">{{student.first_name}} {{student.last_name}}</a>
+    {{student.email}}
+    <button type="submit"><a href="/students/delete/{{ student.id }}">Delete</a></button>
+    <br>
+
+{% endfor %}
+
+{% endblock %}
