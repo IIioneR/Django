@@ -16,9 +16,6 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '!)$9d!r5^__@#@1(o8@uxwin9rkt_6_bx2d5g1z8lou%w$o*75'
 
@@ -26,6 +23,12 @@ SECRET_KEY = '!)$9d!r5^__@#@1(o8@uxwin9rkt_6_bx2d5g1z8lou%w$o*75'
 DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1']
+
+INTERNAL_IPS = [
+    # ...
+    '127.0.0.1',
+    # ...
+]
 
 
 # Application definition
@@ -40,7 +43,9 @@ INSTALLED_APPS = [
     'teacher',
     'student',
     'django_extensions',
-    'group'
+    'group',
+    'django.contrib.staticfiles',
+    'debug_toolbar'
 ]
 
 MIDDLEWARE = [
@@ -51,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'app.urls'
