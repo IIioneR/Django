@@ -19,26 +19,14 @@ from django.conf.urls import include, url
 from django.urls import include, path
 from django.contrib import admin
 from django.urls import path
-from teacher.views import generate_teachers, teachers_list, teachers_add, teachers_edit
-from student.views import students_list, students_add, generate_students, students_edit, students_delete
-from group.views import generate_groups, group_list, groups_add, groups_edit
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('gen-teachers/', generate_teachers),
-    path('generate-students/', generate_students),
     path('', admin.site.urls),
-    path('students/', students_list, name='students'),
-    path('teachers/', teachers_list, name='teachers'),
-    path('generate-group/', generate_groups),
-    path('groups/', group_list, name='groups'),
-    path('students/add/', students_add),
-    path('teachers/add/', teachers_add),
-    path('groups/add/', groups_add),
-    path('students/edit/<int:id>', students_edit),
-    path('teachers/edit/<int:id>', teachers_edit),
-    path('groups/edit/<int:id>', groups_edit),
-    path('students/delete/<int:id>', students_delete),
+
+    path('students/', include('student.urls')),
+    path('teachers/', include('teacher.urls')),
+    path('groups/', include('group.urls'))
 
 ]
 
