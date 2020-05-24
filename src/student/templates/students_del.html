@@ -7,7 +7,7 @@
         <h1>Do you want to delete the Student?</h1>
         {{ form.as_p }}
     <p><input type='submit' value='Yes' />  <a href="{{ request.path }}"></a></p>
-        <p> <a href="/students"> Cancel </a> </p>
+        <p> <a href="{% url 'students:list' %}"> Cancel </a> </p>
 
     </form>
 

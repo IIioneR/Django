@@ -11,13 +11,6 @@
     </form>
 
 
-{% for teacher in teachers_list %}
-    {{teacher.id}}
-    <a href="/teachers/edit/{{ teacher.id }}">{{teacher.first_name}} {{teacher.last_name}}</a>
-    {{teacher.email}}
-    {{teacher.phone_number}}
-    <br>
-
-{% endfor %}
+    {% include 'includes/teachers_table.html' %}
 
 {% endblock %}

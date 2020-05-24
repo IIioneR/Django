@@ -1,0 +1,35 @@
+<!--{% for student in students_list %}-->
+<!--    {{student.id}}-->
+<!--    <a href="/students/edit/{{ student.id }}">{{student.first_name}} {{student.last_name}}</a>-->
+<!--    {{student.email}}-->
+<!--    {{student.group}}-->
+<!--    <button type="submit"><a href="/students/delete/{{ student.id }}">Delete</a></button>-->
+<!--    <br>-->
+
+<!--{% endfor %}-->
+{% if teachers_list %}
+    <table border="1px">
+        <tr>
+          <th>ID</th>
+          <th>First name</th>
+          <th>Last name</th>
+          <th>Email</th>
+          <th>Phone</th>
+{#          <th>🗑</th>#}
+          <th>🖉</th>
+        </tr>
+        {% for teacher in teachers_list %}
+            <tr>
+              <td> {{ teacher.id }}</td>
+              <td> {{ teacher.first_name }}</td>
+              <td> {{ teacher.last_name }}</td>
+              <td> {{ teacher.email }}</td>
+              <td> {{ teacher.phone_number }}</td>
+              <td> <a href="/teachers/edit/{{ teacher.id }}">EDIT</a></td>
+{#              <td> <a href="/teachers/delete/{{ teacher.id }}">DEL</a></td>#}
+            </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <p>Sorry, list is empty</p>
+{% endif %}

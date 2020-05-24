@@ -19,4 +19,4 @@ class StudentEditForm(StudentBaseForm):
 
 class StudentDeleteForm(StudentBaseForm):
     class Meta(StudentBaseForm.Meta):
-        fields =[]
+        fields = []

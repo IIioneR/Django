@@ -1,6 +1,5 @@
 from django.core.management.base import BaseCommand
-from group.models import Group
-from teacher.models import Teacher
+from group.models import Group, ClassRoom
 
 
 class Command(BaseCommand):
@@ -10,10 +9,8 @@ class Command(BaseCommand):
         parser.add_argument('count', type=int)
 
     def handle(self, *args, **kwargs):
-        Group.objects.all().delete()
-        teachers = list(Teacher.objects.all())
         count = kwargs['count']
         for _ in range(count):
-            Group.generate_group(teachers)
+            ClassRoom.generate_classroom()
 
-        self.stdout.write(self.style.SUCCESS(f'Created: {count} groups'))
+        self.stdout.write(self.style.SUCCESS(f'Created: {count} classesroom'))
