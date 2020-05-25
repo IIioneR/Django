@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'teacher',
     'student',
     'group',
+    'crispy_forms',
 
 ]
 
@@ -150,3 +151,5 @@ LOGGING = {
         }
     }
 }
+
+CriSPY_TEMPLATE_PACK = 'uni_form'

@@ -1,8 +1,9 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.urls import reverse
+from django.views.generic import ListView, UpdateView, CreateView, DeleteView
 
-from .forms import TeacherAddForm, TeacherEditForm
+from .forms import TeacherAddForm, TeacherEditForm, TeacherDeleteForm
 from .models import Teacher
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render
@@ -68,3 +69,41 @@ def teachers_edit(request, id):
         template_name='teachers_edit.html',
         context={'form': form, 'title': 'Teacher_edit', 'teacher': teacher}
     )
+
+
+class TeachersListView(ListView):
+    model = Teacher
+    template_name = 'teachers_list.html'
+    context_object_name = 'teachers_list'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=None, **kwargs)
+        context['title'] = 'Group_list'
+        return context
+
+
+class TeachersUpdateView(UpdateView):
+    model = Teacher
+    template_name = 'teachers_edit.html'
+    form_class = TeacherEditForm
+
+    def get_success_url(self):
+        return reverse('teachers:list')
+
+
+class TeachersCreateView(CreateView):
+    model = Teacher
+    template_name = 'teachers_add.html'
+    form_class = TeacherAddForm
+
+    def get_success_url(self):
+        return reverse('teachers:list')
+
+
+class TeacherDeleteView(DeleteView):
+    model = Teacher
+    template_name = 'teachers_delete.html'
+    form_class = TeacherDeleteForm
+
+    def get_success_url(self):
+        return reverse('teachers:list')
