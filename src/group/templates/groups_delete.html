@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+    <form action='{{ request.path }}' method='POST'>{% csrf_token %}
+        <h1>Do you want to delete the Group?</h1>
+        {{ form.as_p }}
+    <p><input type='submit' value='Yes' />  <a href="{{ request.path }}"></a></p>
+        <p> <a href="{% url 'groups:list' %}"> Cancel </a> </p>
+
+    </form>
+
+{% endblock %}

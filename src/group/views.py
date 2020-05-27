@@ -1,8 +1,9 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.urls import reverse
+from django.views.generic import UpdateView, CreateView, DeleteView, ListView
 
-from .forms import GroupEditForm, GroupAddForm
+from .forms import GroupEditForm, GroupAddForm, GroupDeleteForm
 from .models import Group
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render
@@ -34,7 +35,7 @@ def groups_add(request):
         form = GroupAddForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse('groups'))
+            return HttpResponseRedirect(reverse('groups:list'))
     else:
         form = GroupAddForm()
 
@@ -55,7 +56,7 @@ def groups_edit(request, id):
         form = GroupEditForm(request.POST, instance=group)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse('groups'))
+            return HttpResponseRedirect(reverse('groups:list'))
     else:
         form = GroupEditForm(instance=group)
 
@@ -64,3 +65,47 @@ def groups_edit(request, id):
         template_name='groups_edit.html',
         context={'form': form, 'title': 'Group_edit', 'group': group}
     )
+
+
+class GroupsListView(ListView):
+    model = Group
+    template_name = 'groups_list.html'
+    context_object_name = 'groups_list'
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        qs = qs.select_related('teacher')
+        qs = qs.order_by('-id')
+        return qs
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=None, **kwargs)
+        context['title'] = 'Group_list'
+        return context
+
+
+class GroupsUpdateView(UpdateView):
+    model = Group
+    template_name = 'groups_edit.html'
+    form_class = GroupEditForm
+
+    def get_success_url(self):
+        return reverse('groups:list')
+
+
+class GroupsCreateView(CreateView):
+    model = Group
+    template_name = 'groups_add.html'
+    form_class = GroupAddForm
+
+    def get_success_url(self):
+        return reverse('groups:list')
+
+
+class GroupDeleteView(DeleteView):
+    model = Group
+    template_name = 'groups_delete.html'
+    form_class = GroupDeleteForm
+
+    def get_success_url(self):
+        return reverse('groups:list')
