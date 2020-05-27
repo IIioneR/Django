@@ -8,7 +8,8 @@
 
 <!--{% endfor %}-->
 {% if students_list %}
-    <table border="1px">
+    <table border="1px" class="table table-hover">
+        <thead class="thead-dark">
         <tr>
           <th>ID</th>
           <th>First name</th>
@@ -19,6 +20,7 @@
           <th>🖉</th>
           <th>🖉</th>
         </tr>
+        </thead>
         {% for student in students_list %}
             <tr>
               <td> {{ student.id }}</td>

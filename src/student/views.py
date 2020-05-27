@@ -99,10 +99,17 @@ class StudentsListView(ListView):
     context_object_name = 'students_list'
 
     def get_queryset(self):
+        request = self.request
         qs = super().get_queryset()
         qs = qs.select_related('group')
         qs = qs.order_by('-id')
+        if request.GET.get("fname") or request.GET.get('lname'):
+            qs = qs.filter(Q(first_name=request.GET.get("fname")) | Q(last_name=request.GET.get("lname")))
         return qs
+
+
+
+
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=None, **kwargs)
@@ -117,6 +124,11 @@ class StudentsUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse('students:list')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=None, **kwargs)
+        context['title'] = 'Edit Student'
+        return context
 
 
 class StudentsCreateView(CreateView):
