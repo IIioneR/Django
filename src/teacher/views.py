@@ -78,7 +78,7 @@ class TeachersListView(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=None, **kwargs)
-        context['title'] = 'Group_list'
+        context['title'] = 'Teacher list'
         return context
 
 

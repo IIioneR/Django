@@ -6,8 +6,8 @@
     <form action='{{ request.path }}' method='POST'>{% csrf_token %}
         <h1>Do you want to delete the Student?</h1>
         {{ form.as_p }}
-    <p><button type="button" class="btn btn-danger">Delete</button>  <a href="{{ request.path }}"></a></p>
-        <p> <a href="{% url 'students:list' %}"> Cancel </a> </p>
+    <p><button type="submit" class="btn btn-danger">Delete</button>  <a href="{{ request.path }}"></a></p>
+        <p> <a class="btn btn-light" href="{% url 'groups:list' %}"> Cancel </a> </p>
 
     </form>
 
