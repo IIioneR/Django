@@ -1,12 +1,6 @@
 {% extends 'base.html' %}
-{% load crispy_forms_tags %}
 {% block content %}
-
-    <form method="post">
-        {% csrf_token %}
-        {{ form|crispy }}
         <h1>Successfully registered</h1>
         <a href="{% url 'index' %}" class = "btn btn-light"> OK </a>
-    </form>
 
 {% endblock %}

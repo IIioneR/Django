@@ -8,5 +8,5 @@ from user_account.views import CreateUserAccountView
 
 urlpatterns = [
     path('register/', CreateUserAccountView.as_view(), name='registration'),
-    path('successfully/', TemplateView.as_view(template_name='successfully.html'), name='successfully'),
+    path('success-page/', TemplateView.as_view(template_name='successfully.html'), name='successfully'),
 ]
