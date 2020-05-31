@@ -8,7 +8,8 @@
 
 <!--{% endfor %}-->
 {% if teachers_list %}
-    <table border="1px">
+    <table border="1px" class="table table-hover">
+        <thead class="thead-dark">
         <tr>
           <th>ID</th>
           <th>First name</th>
@@ -19,6 +20,7 @@
           <th>🖉</th>
           <th>🖉</th>
         </tr>
+        </thead>
         {% for teacher in teachers_list %}
             <tr>
               <td> {{ teacher.id }}</td>
@@ -32,5 +34,5 @@
         {% endfor %}
     </table>
 {% else %}
-    <p>Sorry, list is empty</p>
+
 {% endif %}

@@ -12,7 +12,7 @@ from group.models import Group
 class Student(models.Model):
     first_name = models.CharField(max_length=40, null=False)
     last_name = models.CharField(max_length=20, null=False)
-    email = models.EmailField(max_length=50, unique=True, null=True, db_index=True)
+    email = models.EmailField(max_length=50, null=True, db_index=True)
     birthday = models.DateField(default=datetime.date.today)
     phone_number = models.CharField(max_length=25, default=380000000000, unique=True)
     group = models.ForeignKey(to=Group, null=True, on_delete=models.SET_NULL, related_name='students')

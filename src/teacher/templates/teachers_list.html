@@ -2,12 +2,20 @@
 
 {% block content %}
 
-    <form>
-      <label for="fname">First name:</label><br>
-      <input type="text" id="fname" name="fname"><br>
-      <label for="lname">Last name:</label><br>
-      <input type="text" id="lname" name="lname"><br>
-        <button type="submit">Search</button>
+<form>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">First name</span>
+          </div>
+          <input  name="fname" type="text" class="form-control" placeholder="First name" aria-label="firstname" aria-describedby="basic-addon1">
+
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Last name</span>
+          </div>
+          <input  name="lname" type="text" class="form-control" placeholder="Last name" aria-label="lastname" aria-describedby="basic-addon1">
+
+          <button type="submit" class="btn btn-success">Search</button>
+        </div>
     </form>
 
 

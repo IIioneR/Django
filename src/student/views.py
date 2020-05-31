@@ -107,13 +107,9 @@ class StudentsListView(ListView):
             qs = qs.filter(Q(first_name=request.GET.get("fname")) | Q(last_name=request.GET.get("lname")))
         return qs
 
-
-
-
-
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=None, **kwargs)
-        context['title'] = 'Student_list'
+        context['title'] = 'Student list'
         return context
 
 
