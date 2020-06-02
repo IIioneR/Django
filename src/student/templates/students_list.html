@@ -3,21 +3,24 @@
 {% block content %}
 
 <form>
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">First name</span>
-          </div>
-          <input  name="fname" type="text" class="form-control" placeholder="First name" aria-label="firstname" aria-describedby="basic-addon1">
-
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1">Last name</span>
-          </div>
-          <input  name="lname" type="text" class="form-control" placeholder="Last name" aria-label="lastname" aria-describedby="basic-addon1">
-
-          <button type="submit" class="btn btn-success">Search</button>
         </div>
-    </form>
+        <input name="fname" type="text" class="form-control" placeholder="First name" aria-label="firstname"
+               aria-describedby="basic-addon1">
 
-    {% include 'includes/students_table.html' %}
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Last name</span>
+        </div>
+        <input name="lname" type="text" class="form-control" placeholder="Last name" aria-label="lastname"
+               aria-describedby="basic-addon1">
+
+        <button type="submit" class="btn btn-success">Search</button>
+    </div>
+
+</form>
+{% include 'includes/students_table.html' %}
+
 
 {% endblock %}
