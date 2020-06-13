@@ -9,5 +9,3 @@ class UserAccountProfile(models.Model):
         User, on_delete=models.CASCADE, related_name='profile'
     )
     image = models.ImageField(default='default.jpg', upload_to='pics')
-
-

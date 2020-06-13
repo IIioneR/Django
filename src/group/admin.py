@@ -1,9 +1,6 @@
 from django.contrib import admin
-
-from django.contrib import admin
-
 # Register your models here.
-from group.models import Group, ClassRoom
+from group.models import Group
 from student.models import Student
 
 
@@ -17,5 +14,6 @@ class GroupAdmin(admin.ModelAdmin):
     fields = ['name_group', 'classroom']
     inlines = (StudentsInline,)
     list_per_page = 10
+
 
 admin.site.register(Group, GroupAdmin)

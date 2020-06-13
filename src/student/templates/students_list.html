@@ -1,13 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% if messages %}
-<ul class="alert alert-primary" role="'alert">
-    {% for message in messages %}
-    <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
+<div class="='p-1 m-1'">
+    {% include 'includes/message.html' %}
+</div>
 <form>
     <div class="input-group mb-3">
         <div class="input-group-prepend">
